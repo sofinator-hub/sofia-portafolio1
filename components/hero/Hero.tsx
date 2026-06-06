@@ -1,0 +1,224 @@
+"use client";
+
+import { motion } from "framer-motion";
+import Navbar from "../navbar/Navbar";
+import Stars from "./Stars";
+import TypingText from "./TypingText";
+import ScrollIndicator from "./ScrollIndicator";
+import ShootingStars from "./ShootingStars";
+
+export default function Hero() {
+  return (
+    <section
+      className="
+      relative
+      flex
+      min-h-screen
+      items-center
+      justify-center
+      overflow-hidden
+      bg-[#030308]
+      px-6
+      text-white
+      "
+    >
+      <Navbar />
+      <ShootingStars />
+      <Stars />
+
+      <div
+  className="
+  absolute
+  inset-0
+  opacity-20
+  "
+  style={{
+    backgroundImage: `
+      linear-gradient(
+        rgba(255,255,255,.05) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        rgba(255,255,255,.05) 1px,
+        transparent 1px
+      )
+    `,
+    backgroundSize: "100px 100px",
+  }}
+/>
+<div
+  className="
+  absolute
+  inset-0
+  opacity-[0.03]
+  "
+  style={{
+    backgroundImage: `
+      radial-gradient(circle at center,
+      white 1px,
+      transparent 1px)
+    `,
+    backgroundSize: "40px 40px",
+  }}
+/>
+      {/* Nebulosa izquierda */}
+      <div
+        className="
+        absolute
+        left-0
+        top-0
+        h-[500px]
+        w-[500px]
+        rounded-full
+        bg-violet-600/20
+        blur-[160px]
+        "
+      />
+
+      {/* Nebulosa derecha */}
+      <div
+        className="
+        absolute
+        right-0
+        bottom-0
+        h-[500px]
+        w-[500px]
+        rounded-full
+        bg-blue-500/10
+        blur-[160px]
+        "
+      />
+
+      <div
+        className="
+        relative
+        z-10
+        mx-auto
+        flex
+        max-w-5xl
+        flex-col
+        items-center
+        text-center
+        "
+      >
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="
+          text-sm
+          tracking-[0.35em]
+          text-violet-400
+          "
+        >
+          HOLA, SOY
+        </motion.span>
+
+        <motion.h1
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.8,
+          }}
+          className="
+          mt-6
+          font-black
+          leading-none
+
+text-6xl
+sm:text-6xl
+md:text-7xl
+lg:text-[11rem]
+xl:text-[13rem]
+          "
+        >
+<span
+  className="
+  bg-gradient-to-b
+  from-white
+  via-zinc-100
+  to-violet-400
+  bg-clip-text
+  text-transparent
+  "
+>
+  SOFIA
+</span>
+<div
+  className="
+  absolute
+  h-[350px]
+  w-[350px]
+  rounded-full
+  bg-violet-600/20
+  blur-[120px]
+  "
+/>
+        </motion.h1>
+
+        <TypingText />
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="
+          mt-8
+          max-w-2xl
+          text-zinc-400
+          md:text-lg
+          "
+        >
+          Desarrollo aplicaciones web, backend,
+          automatizaciones e inteligencia artificial
+          con enfoque en rendimiento, diseño y seguridad.
+        </motion.p>
+
+        <div
+          className="
+          mt-10
+          flex
+          flex-col
+          gap-4
+          sm:flex-row
+          "
+        >
+          <button
+            className="
+            rounded-full
+            bg-violet-600
+            px-8
+            py-4
+            font-medium
+            transition
+            hover:bg-violet-500
+            "
+          >
+            Ver proyectos
+          </button>
+
+          <button
+            className="
+            rounded-full
+            border
+            border-white/10
+            px-8
+            py-4
+            backdrop-blur-xl
+            "
+          >
+            Contactarme
+          </button>
+        </div>
+      </div>
+
+      <ScrollIndicator />
+    </section>
+  );
+}
