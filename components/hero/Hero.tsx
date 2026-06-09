@@ -219,32 +219,44 @@ export default function Hero() {
           sm:flex-row
           "
         >
-          <button
-            className="
-            rounded-full
-            bg-violet-600
-            px-8
-            py-4
-            font-medium
-            transition-colors
-            hover:bg-violet-500
-            "
-          >
-            Ver proyectos
-          </button>
+<button
+  onClick={() => {
+    document
+      .getElementById("projects")
+      ?.scrollIntoView({
+        behavior: "smooth",
+      });
+  }}
+  className="
+  rounded-full
+  bg-violet-600
+  px-8
+  py-4
+  font-medium
+  transition-colors
+  hover:bg-violet-500
+  "
+>
+  Ver proyectos
+</button>
 
-          <button
-            className="
-            rounded-full
-            border
-            border-white/10
-            px-8
-            py-4
-            backdrop-blur-md
-            "
-          >
-            Contactarme
-          </button>
+<a
+  href="https://wa.me/5528287764"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="
+  rounded-full
+  border
+  border-white/10
+  px-8
+  py-4
+  backdrop-blur-md
+  transition-all
+  hover:border-violet-500
+  "
+>
+  Contactarme
+</a>
         </div>
       </div>
 
