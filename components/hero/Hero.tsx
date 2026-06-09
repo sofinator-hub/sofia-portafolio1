@@ -37,7 +37,7 @@ export default function Hero() {
       "
     >
       <Navbar />
-{/* <Stars /> */}
+      <Stars /> 
       <ShootingStars />
  
       {/* Grid */}
