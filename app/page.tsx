@@ -15,6 +15,7 @@ export default function Home() {
       relative
       overflow-hidden
       bg-[#030308]
+
       text-white
       "
     >
@@ -31,4 +32,4 @@ export default function Home() {
       <Contact />
     </main>
   );
-}
+} 
