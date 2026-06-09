@@ -1,9 +1,41 @@
+import dynamic from "next/dynamic";
+
 import Hero from "@/components/hero/Hero";
-import Stars from "@/components/hero/Stars";
-import About from "@/sections/About";
-import Projects from "@/sections/Projects";
-import Skills from "@/sections/Skills";
-import Contact from "@/sections/Contact";
+
+const Stars = dynamic(
+  () => import("@/components/hero/Stars"),
+  {
+    ssr: false,
+  }
+);
+
+const About = dynamic(
+  () => import("@/sections/About"),
+  {
+    loading: () => null,
+  }
+);
+
+const Projects = dynamic(
+  () => import("@/sections/Projects"),
+  {
+    loading: () => null,
+  }
+);
+
+const Skills = dynamic(
+  () => import("@/sections/Skills"),
+  {
+    loading: () => null,
+  }
+);
+
+const Contact = dynamic(
+  () => import("@/sections/Contact"),
+  {
+    loading: () => null,
+  }
+);
 
 export default function Home() {
   return (
