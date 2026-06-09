@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 type Star = {
   x: number;
@@ -11,53 +11,72 @@ type Star = {
 };
 
 export default function Stars() {
-  const [mounted, setMounted] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const [mouse, setMouse] = useState({
-    x: 0,
-    y: 0,
-  });
-
-  const [stars, setStars] = useState<Star[]>([]);
-
-  useEffect(() => {
-    setMounted(true);
-
-    setStars(
-      Array.from({ length: 250 }, () => ({
+  const stars = useMemo<Star[]>(
+    () =>
+      Array.from({ length: 100 }, () => ({
         x: Math.random() * 100,
         y: Math.random() * 100,
-        size: Math.random() * 3 + 1,
-        depth: Math.random() * 40 + 10,
-        opacity: Math.random() * 0.8 + 0.2,
-      }))
-    );
-  }, []);
+        size: Math.random() * 2 + 1,
+        depth: Math.random() * 25 + 5,
+        opacity: Math.random() * 0.7 + 0.3,
+      })),
+    []
+  );
 
   useEffect(() => {
-    const move = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 2;
-      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+    const container = containerRef.current;
 
-      setMouse({ x, y });
+    if (!container) return;
+
+    const elements = Array.from(
+      container.querySelectorAll<HTMLElement>("[data-star]")
+    );
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
     };
 
-    window.addEventListener("mousemove", move);
+    let animationFrame: number;
+
+    const animate = () => {
+      elements.forEach((el) => {
+        const depth = Number(el.dataset.depth);
+
+        el.style.transform = `translate(
+          ${mouseX * depth}px,
+          ${mouseY * depth}px
+        )`;
+      });
+
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    animate();
 
     return () => {
-      window.removeEventListener("mousemove", move);
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(animationFrame);
     };
   }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
+ 
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div
+      ref={containerRef}
+      className="absolute inset-0 overflow-hidden pointer-events-none"
+    >
       {stars.map((star, index) => (
         <span
           key={index}
+          data-star
+          data-depth={star.depth}
           className="absolute rounded-full bg-white"
           style={{
             width: `${star.size}px`,
@@ -65,11 +84,7 @@ export default function Stars() {
             left: `${star.x}%`,
             top: `${star.y}%`,
             opacity: star.opacity,
-            transform: `translate(
-              ${mouse.x * star.depth}px,
-              ${mouse.y * star.depth}px
-            )`,
-            transition: "transform 0.15s linear",
+            willChange: "transform",
           }}
         />
       ))}
