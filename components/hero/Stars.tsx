@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type Star = {
   x: number;
@@ -13,19 +13,40 @@ type Star = {
 export default function Stars() {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    check();
+
+    window.addEventListener("resize", check);
+
+    return () => {
+      window.removeEventListener("resize", check);
+    };
+  }, []);
+
   const stars = useMemo<Star[]>(
     () =>
-      Array.from({ length: 100 }, () => ({
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 2 + 1,
-        depth: Math.random() * 25 + 5,
-        opacity: Math.random() * 0.7 + 0.3,
-      })),
-    []
+      Array.from(
+        { length: isMobile ? 40 : 60 },
+        () => ({
+          x: Math.random() * 100,
+          y: Math.random() * 100,
+          size: Math.random() * 2 + 1,
+          depth: Math.random() * 15 + 5,
+          opacity: Math.random() * 0.6 + 0.4,
+        })
+      ),
+    [isMobile]
   );
 
   useEffect(() => {
+    if (isMobile) return;
+
     const container = containerRef.current;
 
     if (!container) return;
@@ -34,39 +55,45 @@ export default function Stars() {
       container.querySelectorAll<HTMLElement>("[data-star]")
     );
 
-    let mouseX = 0;
-    let mouseY = 0;
+    let frame = 0;
 
     const handleMouseMove = (e: MouseEvent) => {
-      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-    };
+      cancelAnimationFrame(frame);
 
-    let animationFrame: number;
+      frame = requestAnimationFrame(() => {
+        const x =
+          (e.clientX / window.innerWidth - 0.5) * 2;
 
-    const animate = () => {
-      elements.forEach((el) => {
-        const depth = Number(el.dataset.depth);
+        const y =
+          (e.clientY / window.innerHeight - 0.5) * 2;
 
-        el.style.transform = `translate(
-          ${mouseX * depth}px,
-          ${mouseY * depth}px
-        )`;
+        elements.forEach((el) => {
+          const depth = Number(el.dataset.depth);
+
+          el.style.transform = `translate(
+            ${x * depth}px,
+            ${y * depth}px
+          )`;
+        });
       });
-
-      animationFrame = requestAnimationFrame(animate);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-
-    animate();
+    window.addEventListener(
+      "mousemove",
+      handleMouseMove,
+      { passive: true }
+    );
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      cancelAnimationFrame(animationFrame);
+      window.removeEventListener(
+        "mousemove",
+        handleMouseMove
+      );
+
+      cancelAnimationFrame(frame);
     };
-  }, []);
- 
+  }, [isMobile]);
+
   return (
     <div
       ref={containerRef}
@@ -77,14 +104,21 @@ export default function Stars() {
           key={index}
           data-star
           data-depth={star.depth}
-          className="absolute rounded-full bg-white"
+          className={`
+            absolute
+            rounded-full
+            bg-white
+            ${isMobile ? "animate-pulse" : ""}
+          `}
           style={{
             width: `${star.size}px`,
             height: `${star.size}px`,
             left: `${star.x}%`,
             top: `${star.y}%`,
             opacity: star.opacity,
-            willChange: "transform",
+            willChange: isMobile
+              ? "auto"
+              : "transform",
           }}
         />
       ))}
