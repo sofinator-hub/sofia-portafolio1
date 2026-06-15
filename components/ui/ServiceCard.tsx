@@ -191,7 +191,7 @@ export default function ServiceCard({
           </a>
 
           <a
-            href="https://wa.me/52TU_NUMERO"
+            href="https://wa.me/5528287764"
             target="_blank"
             rel="noopener noreferrer"
             className="
