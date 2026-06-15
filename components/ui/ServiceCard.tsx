@@ -11,13 +11,18 @@ export default function ServiceCard({
   price,
   description,
   features,
-  popular,
+  popular = false,
 }: ServiceCardProps) {
   return (
     <article
       className={`
-        relative overflow-hidden rounded-3xl
-        transition-all duration-500
+        group
+        relative
+        overflow-hidden
+        rounded-3xl
+
+        transition-all
+        duration-500
 
         backdrop-blur-xl
 
@@ -46,36 +51,48 @@ export default function ServiceCard({
         hover:-translate-y-2
       `}
     >
-      {/* Glow */}
+      {/* Glow superior */}
+
       <div
         className="
-          absolute inset-0
+          absolute
+          inset-0
+
           opacity-0
-          transition-opacity duration-500
+          transition-opacity
+          duration-500
 
           group-hover:opacity-100
+
           bg-gradient-to-b
-          from-cyan-500/[0.05]
+          from-cyan-500/[0.04]
           via-transparent
           to-transparent
         "
       />
 
       {/* Badge */}
+
       {popular && (
         <div
           className="
-            absolute right-5 top-5
+            absolute
+            right-5
+            top-5
 
             rounded-full
 
-            border border-cyan-400/20
+            border
+            border-cyan-400/20
+
             bg-cyan-500/10
 
-            px-4 py-2
+            px-4
+            py-2
 
             text-xs
             font-medium
+
             text-cyan-300
           "
         >
@@ -85,39 +102,66 @@ export default function ServiceCard({
 
       <div className="relative z-10 p-8">
         {/* Título */}
-        <h3 className="text-3xl font-bold tracking-tight">
+
+        <h3
+          className="
+            text-3xl
+            font-bold
+            tracking-tight
+          "
+        >
           {title}
         </h3>
 
         {/* Precio */}
+
         <div className="mt-8">
-          <p className="text-xs uppercase tracking-[0.4em] text-white/40">
+          <span
+            className="
+              text-xs
+              uppercase
+              tracking-[0.35em]
+
+              text-white/40
+            "
+          >
             Desde
-          </p>
+          </span>
 
           <div className="mt-3 flex items-end gap-2">
             <span
               className="
                 text-5xl
                 md:text-6xl
+
                 font-black
                 tracking-tight
               "
             >
-              {price.replace("Desde ", "").replace(" MXN", "")}
+              {price}
             </span>
 
-            <span className="pb-2 text-white/50">
-              MXN
-            </span>
+            {price !== "Cotizar" && (
+              <span
+                className="
+                  pb-2
+                  text-white/50
+                "
+              >
+                MXN
+              </span>
+            )}
           </div>
         </div>
 
-        {/* Texto */}
+        {/* Descripción */}
+
         <p
           className="
             mt-6
+
             leading-relaxed
+
             text-white/65
           "
         >
@@ -125,9 +169,12 @@ export default function ServiceCard({
         </p>
 
         {/* Divider */}
+
         <div
           className="
-            my-8 h-px
+            my-8
+
+            h-px
 
             bg-gradient-to-r
             from-transparent
@@ -137,47 +184,64 @@ export default function ServiceCard({
         />
 
         {/* Features */}
+
         <ul className="space-y-4">
           {features.map((feature) => (
             <li
               key={feature}
               className="
-                flex items-center gap-3
+                flex
+                items-center
+                gap-3
+
                 text-white/80
               "
             >
               <div
                 className="
-                  flex h-7 w-7 items-center justify-center
+                  flex
+                  h-7
+                  w-7
+
+                  items-center
+                  justify-center
 
                   rounded-full
 
-                  border border-cyan-400/15
+                  border
+                  border-cyan-400/15
+
                   bg-cyan-500/10
 
+                  text-sm
                   text-cyan-300
                 "
               >
                 ✓
               </div>
 
-              {feature}
+              <span>{feature}</span>
             </li>
           ))}
         </ul>
 
-        {/* Botones */}
+        {/* CTA */}
+
         <div className="mt-10 flex gap-3">
           <a
             href="#contact"
             className="
               flex-1
+
               rounded-xl
 
+              border
+              border-cyan-400/20
+
               bg-cyan-500/10
-              border border-cyan-400/20
 
               py-4
+
               text-center
               font-medium
 
@@ -191,17 +255,21 @@ export default function ServiceCard({
           </a>
 
           <a
-            href="https://wa.me/5528287764"
+            href="https://wa.me/525528287764"
             target="_blank"
             rel="noopener noreferrer"
             className="
               flex-1
+
               rounded-xl
 
-              border border-white/10
+              border
+              border-white/10
+
               bg-white/[0.03]
 
               py-4
+
               text-center
 
               transition-all
