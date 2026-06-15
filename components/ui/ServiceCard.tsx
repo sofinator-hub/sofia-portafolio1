@@ -14,54 +14,69 @@ export default function ServiceCard({
   popular,
 }: ServiceCardProps) {
   return (
-    <div
+    <article
       className={`
-        group relative overflow-hidden rounded-[32px]
-        border transition-all duration-500
+        relative overflow-hidden rounded-3xl
+        transition-all duration-500
+
+        backdrop-blur-xl
 
         ${
           popular
             ? `
-            border-white/20
-            bg-white/[0.05]
-            scale-105
-            shadow-[0_0_80px_rgba(255,255,255,0.08)]
+              border border-cyan-400/20
+              bg-gradient-to-b
+              from-cyan-500/[0.08]
+              via-white/[0.03]
+              to-transparent
+
+              shadow-[0_0_60px_rgba(56,189,248,0.12)]
+
+              lg:scale-105
             `
             : `
-            border-white/10
-            bg-white/[0.02]
-            hover:bg-white/[0.04]
+              border border-white/10
+              bg-white/[0.02]
+
+              hover:border-cyan-400/10
+              hover:bg-white/[0.04]
             `
         }
 
-        backdrop-blur-xl
         hover:-translate-y-2
       `}
     >
       {/* Glow */}
       <div
         className="
-          absolute inset-0 opacity-0
+          absolute inset-0
+          opacity-0
           transition-opacity duration-500
+
           group-hover:opacity-100
           bg-gradient-to-b
-          from-white/[0.05]
+          from-cyan-500/[0.05]
           via-transparent
           to-transparent
         "
       />
 
-      {/* Popular badge */}
+      {/* Badge */}
       {popular && (
         <div
           className="
             absolute right-5 top-5
+
             rounded-full
-            border border-white/20
-            bg-white/10
+
+            border border-cyan-400/20
+            bg-cyan-500/10
+
             px-4 py-2
-            text-xs font-medium
-            backdrop-blur
+
+            text-xs
+            font-medium
+            text-cyan-300
           "
         >
           Más solicitado
@@ -69,75 +84,135 @@ export default function ServiceCard({
       )}
 
       <div className="relative z-10 p-8">
-        {/* Title */}
+        {/* Título */}
         <h3 className="text-3xl font-bold tracking-tight">
           {title}
         </h3>
 
-        {/* Price */}
+        {/* Precio */}
         <div className="mt-8">
-          <span className="block text-sm uppercase tracking-[0.3em] text-white/50">
+          <p className="text-xs uppercase tracking-[0.4em] text-white/40">
             Desde
-          </span>
+          </p>
 
-          <div className="mt-2 flex items-end gap-2">
-            <span className="text-6xl font-black tracking-tight">
+          <div className="mt-3 flex items-end gap-2">
+            <span
+              className="
+                text-5xl
+                md:text-6xl
+                font-black
+                tracking-tight
+              "
+            >
               {price.replace("Desde ", "").replace(" MXN", "")}
             </span>
 
-            <span className="mb-2 text-lg text-white/60">
+            <span className="pb-2 text-white/50">
               MXN
             </span>
           </div>
         </div>
 
-        {/* Description */}
-        <p className="mt-6 leading-relaxed text-white/70">
+        {/* Texto */}
+        <p
+          className="
+            mt-6
+            leading-relaxed
+            text-white/65
+          "
+        >
           {description}
         </p>
 
         {/* Divider */}
-        <div className="my-8 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+        <div
+          className="
+            my-8 h-px
+
+            bg-gradient-to-r
+            from-transparent
+            via-white/15
+            to-transparent
+          "
+        />
 
         {/* Features */}
         <ul className="space-y-4">
           {features.map((feature) => (
             <li
               key={feature}
-              className="flex items-center gap-3 text-white/85"
+              className="
+                flex items-center gap-3
+                text-white/80
+              "
             >
               <div
                 className="
-                  flex h-6 w-6 items-center justify-center
-                  rounded-full border border-white/20
-                  bg-white/5 text-sm
+                  flex h-7 w-7 items-center justify-center
+
+                  rounded-full
+
+                  border border-cyan-400/15
+                  bg-cyan-500/10
+
+                  text-cyan-300
                 "
               >
                 ✓
               </div>
 
-              <span>{feature}</span>
+              {feature}
             </li>
           ))}
         </ul>
 
-        {/* CTA */}
-        <button
-          className="
-            mt-10 w-full rounded-2xl
-            border border-white/15
-            bg-white/5
-            py-4
-            font-medium
-            transition-all duration-300
+        {/* Botones */}
+        <div className="mt-10 flex gap-3">
+          <a
+            href="#contact"
+            className="
+              flex-1
+              rounded-xl
 
-            hover:bg-white
-            hover:text-black
-          "
-        >
-          Solicitar Cotización
-        </button>
+              bg-cyan-500/10
+              border border-cyan-400/20
+
+              py-4
+              text-center
+              font-medium
+
+              transition-all
+
+              hover:bg-cyan-400
+              hover:text-black
+            "
+          >
+            Cotizar
+          </a>
+
+          <a
+            href="https://wa.me/52TU_NUMERO"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="
+              flex-1
+              rounded-xl
+
+              border border-white/10
+              bg-white/[0.03]
+
+              py-4
+              text-center
+
+              transition-all
+
+              hover:bg-white/10
+            "
+          >
+            WhatsApp
+          </a>
+        </div>
       </div>
-    </div>
+    </article>
   );
 }
