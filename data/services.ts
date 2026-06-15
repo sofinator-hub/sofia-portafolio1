@@ -1,44 +1,47 @@
 export const services = [
   {
     title: "Landing Page",
-    price: "Desde $4,900 MXN",
+    price: "$7,900",
     description:
-      "Ideal para emprendedores y negocios que necesitan presencia profesional en internet.",
+      "Ideal para emprendedores y negocios que necesitan una presencia profesional en internet.",
     features: [
-      "Diseño responsivo",
+      "Diseño moderno y responsivo",
       "Hasta 5 secciones",
-      "WhatsApp",
+      "Integración con WhatsApp",
       "Formulario de contacto",
+      "Optimización para móviles",
       "SEO básico",
     ],
   },
 
   {
     title: "Sitio Profesional",
-    price: "Desde $9,900 MXN",
+    price: "$14,900",
     popular: true,
     description:
-      "La mejor opción para negocios y empresas que buscan generar confianza.",
+      "La mejor opción para negocios que buscan generar confianza y atraer nuevos clientes.",
     features: [
       "Hasta 8 páginas",
-      "SEO avanzado",
-      "Google Maps",
+      "Diseño personalizado",
+      "Mayor visibilidad en Google",
       "Animaciones modernas",
-      "Optimización de velocidad",
+      "Carga rápida para mejorar conversiones",
+      "Integración con mapas y formularios",
     ],
   },
 
   {
     title: "Sitio Empresarial",
-    price: "Desde $19,900 MXN",
+    price: "$24,900",
     description:
-      "Experiencia premium para marcas y empresas con objetivos de crecimiento.",
+      "Experiencias digitales premium diseñadas para empresas que buscan destacar y escalar.",
     features: [
-      "Diseño personalizado",
-      "SEO técnico",
-      "Integraciones avanzadas",
-      "Animaciones premium",
-      "Escalable",
+      "Diseño estratégico a medida",
+      "SEO avanzado",
+      "Arquitectura escalable",
+      "Integraciones personalizadas",
+      "Optimización de rendimiento",
+      "Soporte posterior al lanzamiento",
     ],
   },
 ];
